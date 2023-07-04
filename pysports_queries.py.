@@ -1,0 +1,11 @@
+pysports_queries.py.
+import mysql.connector
+from mysql.connector import errorcode
+# MySQL connection configuration
+config = {
+  'user': 'your_username',
+  'password': 'your_password',
+  'host': 'localhost',
+  'database': 'pysports',
+  'raise_on_warnings': True
+}
