@@ -1,0 +1,127 @@
+class Book:
+    def __init__(self, book_id, book_name, author, details):
+        self.book_id = book_id
+        self.book_name = book_name
+        self.author = author
+        self.details = details
+
+
+class User:
+    def __init__(self, user_id):
+        self.user_id = user_id
+        self.wishlist = []
+
+    def add_book_to_wishlist(self, book):
+        self.wishlist.append(book)
+
+
+class WhatABook:
+    def __init__(self):
+        self.books = []
+        self.locations = []
+
+    def add_book(self, book):
+        self.books.append(book)
+
+    def add_location(self, location):
+        self.locations.append(location)
+
+    def get_book_by_id(self, book_id):
+        for book in self.books:
+            if book.book_id == book_id:
+                return book
+        return None
+
+    def get_location_by_id(self, location_id):
+        for location in self.locations:
+            if location.location_id == location_id:
+                return location
+        return None
+
+
+class Location:
+    def __init__(self, location_id, location_name):
+        self.location_id = location_id
+        self.location_name = location_name
+
+
+def display_books(whatabook):
+    print("Available Books:")
+    print("----------------")
+    for book in whatabook.books:
+        print("Book ID:", book.book_id)
+        print("Book Name:", book.book_name)
+        print("Author:", book.author)
+        print("Details:", book.details)
+        print("----------------")
+
+def display_locations(whatabook):
+    print("Store Locations:")
+    print("----------------")
+    for location in whatabook.locations:
+        print("Location ID:", location.location_id)
+        print("Location Name:", location.location_name)
+        print("----------------")
+
+def display_wishlist(user):
+    if len(user.wishlist) > 0:
+        print("Your Wishlist:")
+        print("----------------")
+        for book in user.wishlist:
+            print("Book ID:", book.book_id)
+            print("Book Name:", book.book_name)
+            print("Author:", book.author)
+            print("Details:", book.details)
+            print("----------------")
+    else:
+        print("Your Wishlist is empty.")
+
+def main():
+    whatabook = WhatABook()
+    user_id = input("Please enter your user ID: ")
+
+    while True:
+        print("\nMenu:")
+        print("1. View Books")
+        print("2. View Store Locations")
+        print("3. My Account")
+        print("4. Exit Program")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == '1':
+            display_books(whatabook)
+        elif choice == '2':
+            display_locations(whatabook)
+        elif choice == '3':
+            print("\nMy Account:")
+            print("1. Wishlist")
+            print("2. Add Book")
+            print("3. Main Menu")
+
+            account_choice = input("Enter your choice (1-4): ")
+
+            if account_choice == '1':
+                display_wishlist(user)
+            elif account_choice == '2':
+                display_books(whatabook)
+                book_id = input("Enter the book ID to add to your wishlist: ")
+                book = whatabook.get_book_by_id(book_id)
+                if book:
+                    user.add_book_to_wishlist(book)
+                    print("Book added to your wishlist.")
+                else:
+                    print("Invalid book ID.")
+            elif account_choice == '3':
+                continue
+            else:
+                print("Invalid choice. Please try again.")
+        elif choice == '4':
+            print("Exiting program...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
